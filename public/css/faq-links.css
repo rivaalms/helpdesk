@@ -1,0 +1,7 @@
+.faq-links {
+    transition: 0.3s;
+}
+
+.faq-links:hover {
+    color: #FF5C8D!important;
+}
