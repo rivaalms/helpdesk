@@ -1,42 +1,25 @@
 @extends('layouts/main')
 @section('container')
-<div class="container-fluid">
-    <div class="container text-center py-5" style="max-width: 800px">
-        <div class="pt-5">
-            <h1 class="display-4 mb-5">{{$faq->subject}}</h1>
-        </div>
-    </div>
-</div>
 
-<div class="container" style="max-width: 1200px;">
-    {{-- <div class="container-fluid mb-5">
-        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="pb-3">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item"><a href="/faq">FAQ</a></li>
-              <li class="breadcrumb-item active" aria-current="page">{{$faq->subject}}</li>
-            </ol>
-        </nav>
-    </div> --}}
-
+<div class="container mt-5" style="max-width: 1200px;">
     <div class="row">
         <div class="col-md-4">
             <div class="container-fluid">
                 <div class="card border-0 shadow-sm">
                     <div class="card-body">
-                        <form action="post">
+                        <form action="/search" method="post" autocomplete="off">
                             @csrf
                             <div class="input-group my-3">
-                                <input type="text" class="form-control typeahead" placeholder="Search...">
-                                <button class="btn btn-custom-primary btn-light" type="button" id="button-search"><span data-feather="search"></span></button>
+                                <input type="text" class="form-control typeahead" placeholder="Cari..." name="search">
+                                <button class="btn btn-custom-primary btn-light" type="submit" id="button-search"><span data-feather="search"></span></button>
                             </div>
                         </form>
                     </div>
                     <div class="card-body border-top">
-                        <h5 class="mb-4">Category</h5>
-                        <ul>
+                        <h5 class="mb-4">Kategori</h5>
+                        <ul class="list-group list-group-flush">
                             @foreach ($category as $c)
-                                <li class="mb-1"><a href="/category/{{$c->id}}" class="text-decoration-none text-reset faq-links">{{$c->name}}</a></li>
+                                <li class="list-group-item"><a href="/category/{{$c->id}}" class="text-decoration-none text-reset faq-links">{{$c->name}}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -44,8 +27,14 @@
             </div>
         </div>
         <div class="col-md-8">
-            {{-- <h2 class="mb-4">{{$faq->subject}}</h2> --}}
-            <p>{{$faq->content}}</p>
+            <h1 class="display-6 mb-5">{{$faq->subject}}</h1>
+            <div class="mb-5">
+                <p>{!!$faq->content!!}</p>
+            </div>
+            <div class="mb-3">
+                <h5>Butuh bantuan lebih lanjut?</h5>
+                <a href="/create" class="btn btn-custom-primary my-2">Buka tiket bantuan</a>
+            </div>
         </div>
     </div>
 </div>    

@@ -9,17 +9,17 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     {{-- custom css --}}
-    {{-- <link rel="stylesheet" href="{{asset('/css/custom.css?v='),time()}}"> --}}
     <link rel="stylesheet" href="/css/custom.css">
 
     {{-- for faq links --}}
-    {{-- <link rel="stylesheet" href="{{asset('/css/faq-links.css?v='),time()}}"> --}}
     <link rel="stylesheet" href="/css/faq-links.css">
+
+    <script src="https://kit.fontawesome.com/6f1456e2a1.js" crossorigin="anonymous"></script>
 
     <title>Helpdesk</title>
   </head>
 
-  <body class="bg-light">
+  <body {{-- class="bg-white" --}} id="userBody">
     
     @include('layouts/header')
     <main>

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('category_id');
             $table->foreignId('status_id');
             $table->dateTime('closed_at')->nullable();
-            $table->foreignId('admin_user_id'); //ticket handler
+            // $table->foreignId('admin_user_id'); //ticket handler
             $table->timestamps();
         });
     }

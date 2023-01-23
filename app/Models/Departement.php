@@ -14,4 +14,12 @@ class Departement extends Model
     public function workers() {
         return $this->hasMany(Worker::class);
     }
+
+    public function registerrequest() {
+        return $this->hasMany(RegisterRequest::class);
+    }
+
+    public function users() {
+        return $this->hasMany(User::class);
+    }
 }

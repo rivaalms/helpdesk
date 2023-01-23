@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
         // ]);
         Paginator::useBootstrap();
         config(['app.locale' => 'id']);
-        Carbon::setLocale('id');
+        Carbon::setLocale('id_ID');
         date_default_timezone_set('Asia/Jakarta');
     }
 }

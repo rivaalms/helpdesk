@@ -10,6 +10,9 @@ class Worker extends Model
     use HasFactory;
 
     // protected $primaryKey = 'user_id';
+    
+    protected $fillable = ['user_id', 'departement_id', 'created_at', 'updated_at'];
+
     public $incrementing = false;
 
     public function user() {

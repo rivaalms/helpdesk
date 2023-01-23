@@ -1,63 +1,118 @@
 @extends('layouts/main')
 @section('container')
-<div class="container-fluid {{-- bg-custom-secondary --}}">
-    <div class="container text-center py-5" style="max-width: 800px">
-        <div class="py-5">
-            <h1 class="display-4 mb-5">How can we help?</h1>
-            <form action="" method="post">
-                @csrf
-                <div class="input-group input-group-lg mb-3">
-                    <input type="text" autocomplete="off" class="form-control typeahead" id="search" placeholder="Search...">
-                    <button class="btn btn-custom-primary btn-light" type="button" id="button-search"><span class="mb-1" data-feather="search"></span></button>
+<div class="container-fluid gradient-container">
+    <div class="container py-5" style="max-width: 1200px">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="py-5">
+                    <h1 class="display-5 mb-5">
+                        Selamat 
+                        @if (($time > 4) && ($time < 11))
+                        pagi, 
+                        @elseif ($time < 15)
+                        siang, 
+                        @elseif ($time < 18)
+                        sore, 
+                        @else
+                        malam, 
+                        @endif
+                        <br>Ada yang bisa kami bantu?
+                    </h1>
+                    <form action="/search" method="post">
+                        @csrf
+                        <div class="input-group input-group-lg mb-3">
+                            <input type="text" autocomplete="off" class="form-control typeahead" id="search" name="search" placeholder="Cari..." required>
+                            <button class="btn btn-custom-primary btn-light" type="submit" id="button-search"><span class="mb-1" data-feather="search"></span></button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
+
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="img-container px-5 pt-4">
+                    <img class="img-fluid" src="/images/troubleshooting.jpg" alt="Troubleshooting">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-5 mt-3" style="max-width: 1200px">
+    <div class="text-center">
+        <h2 class="fs-3">Pilih topik berdasarkan kendala</h2>
+    </div>
+    <div class="py-4">
+        <div class="row">
+            @foreach ($category as $c)
+                <div class="col-md-4">
+                    <div class="card mb-3 border-0 shadow-sm">
+                        <div class="card-body d-flex">
+                            <div class="me-3">
+                                <img src=@if($c->id == 1) "/images/pc.png" @elseif($c->id == 2) "/images/software.png" @elseif($c->id == 3) "/images/router.png" @endif alt="" style="height: 40px; width:auto;" class="img-fluid">
+                            </div>
+                            <div class="d-flex flex-grow-1 align-items-center">
+                                <a href="/category/{{$c->id}}" class="text-decoration-none text-reset stretched-link fs-5">{{$c->name}}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>
 
 {{-- cards --}}
-<div class="container my-5 text-center" style="max-width: 1200px">
-    <div class="py-5">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card text-center border-0 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Computer</h5>
-                        <div class="mx-5 px-3 my-3"><hr></div>
-                        @foreach ($computer as $c)
-                            <div class="mb-1">
-                                <span class="faq-links mb-1"><a href="/faq/{{$c->id}}" class="text-reset text-decoration-none card-text">{{$c->subject}}</a></span>
-                            </div>
-                        @endforeach
-                        <a href="/category/{{$computer_cat->id}}" class="btn btn-custom-primary mt-3">See All</a>
+<div class="container mb-5 mt-3" style="max-width: 1200px">
+    <div class="text-center">
+        <h2 class="fs-3">Yang sering ditanyakan</h2>
+    </div>
+    <div class="py-4 d-flex justify-content-center">
+        <div class="accordion" id="faq" style="width: 65%">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        {{$articles->find(3)->subject}}
+                    </button>
+                </h2>
+                <div class="accordion-collapse collapse" id="collapseOne" aria-labelledby="headingOne" data-bs-parent="#faq">
+                    <div class="accordion-body">
+                        {!!$articles->find(3)->content!!}
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-center border-0 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Software</h5>
-                        <div class="mx-5 px-3 my-3"><hr></div>
-                        @foreach ($software as $s)
-                            <div class="mb-1">
-                                <span class="faq-links mb-1"><a href="/faq/{{$s->id}}" class="text-reset text-decoration-none card-text">{{$s->subject}}</a></span>
-                            </div>
-                        @endforeach
-                        <a href="/category/{{$software_cat->id}}" class="btn btn-custom-primary mt-3">See All</a>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        {{$articles->find(4)->subject}}
+                    </button>
+                </h2>
+                <div class="accordion-collapse collapse" id="collapseTwo" aria-labelledby="headingTwo" data-bs-parent="#faq">
+                    <div class="accordion-body">
+                        {!!$articles->find(4)->content!!}
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-center border-0 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">Network</h5>
-                        <div class="mx-5 px-3 my-3"><hr></div>
-                        @foreach ($network as $n)
-                            <div class="mb-1">
-                                <span class="faq-links mb-1"><a href="/faq/{{$n->id}}" class="text-reset text-decoration-none card-text">{{$n->subject}}</a></span>
-                            </div>
-                        @endforeach
-                        <a href="/category/{{$network_cat->id}}" class="btn btn-custom-primary mt-3">See All</a>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        {{$articles->find(5)->subject}}
+                    </button>
+                </h2>
+                <div class="accordion-collapse collapse" id="collapseThree" aria-labelledby="headingThree" data-bs-parent="#faq">
+                    <div class="accordion-body">
+                        {!!$articles->find(5)->content!!}
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                        {{$articles->find(6)->subject}}
+                    </button>
+                </h2>
+                <div class="accordion-collapse collapse" id="collapseFour" aria-labelledby="headingFour" data-bs-parent="#faq">
+                    <div class="accordion-body">
+                        {!!$articles->find(6)->content!!}
                     </div>
                 </div>
             </div>
@@ -66,15 +121,20 @@
 </div>
 
 {{-- open ticket --}}
-<div class="container-fluid my-5">
-    <div class="container py-5" style="max-width: 1200px">
+<div class="container-fluid pb-3">
+    <div class="container my-5" style="max-width: 1200px">
         <div class="row">
-            <div class="col-md-6">
-                
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="img-container">
+                    <img class="img-fluid" src="/images/customer-support.jpg" alt="Customer Support">
+                </div>
             </div>
-            <div class="col-md-6">
-                <h2>Didn't find any solutions?</h2>
-                <a href="/create" class="btn btn-custom-primary btn-lg my-2">Open support ticket</a>
+            <div class="col-lg-6 col-md-12 d-flex align-items-center">
+                <div class="">
+                    <h2 class="mb-3">Tidak menemukan solusi?</h2>
+                    <p class="text-muted">Anda bisa membuat tiket bantuan untuk mendapatkan bantuan lebih lanjut terhadap masalah Anda.</p>
+                    <a href="/create" class="btn btn-custom-primary btn-lg my-2">Buat tiket bantuan</a>
+                </div>
             </div>
         </div>
     </div>

@@ -14,4 +14,8 @@ class Article extends Model
     public function category() {
         return $this->belongsTo(Category::class);
     }
+
+    // public function scopeFilter($query, array $filters) {
+    //     $query->when($filters['search'] ?? false, fn($query, $search) => $query->where('subject', 'like', '%'.$search.'%'));
+    // }
 }

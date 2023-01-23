@@ -33,7 +33,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        // 'remember_token',
     ];
 
     /**
@@ -41,9 +41,9 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 
     // protected function setKeysForSaveQuery(Builder $query)
     // {
@@ -53,6 +53,12 @@ class User extends Authenticatable
             
     //     return $query;
     // }
+
+    public function scopeFilter($query, array $filters) {
+        if ((isset($filters['user_div_start']) && isset($filters['user_div_end'])) ? ($filters['user_div_start'] && $filters['user_div_end']) : false) {
+            return $query->whereBetween('created_at', [\Carbon\Carbon::parse($filters['user_div_start'])->format('Y-m-d H:i:s'), \Carbon\Carbon::parse($filters['user_div_end'])->endOfDay()->format('Y-m-d H:i:s')]);
+        }
+    }
 
     public function tickets() {
         return $this->hasMany(Ticket::class);
@@ -67,10 +73,18 @@ class User extends Authenticatable
     }
 
     public function workers() {
-        return $this->hasMany(Worker::class);
+        return $this->hasMany(Worker::class, 'user_id');
     }
 
     public function user_role() {
         return $this->belongsTo(UserRole::class);
+    }
+
+    public function departement() {
+        return $this->belongsTo(Departement::class);
+    }
+
+    public function webhook() {
+        return $this->belongsTo(Webhook::class);
     }
 }

@@ -19,7 +19,7 @@ class ArticleFactory extends Factory
         return [
             'subject' => $this->faker->sentence(mt_rand(3,5), false),
             'content' => $this->faker->paragraphs(mt_rand(5, 15), true),
-            'category_id' => mt_rand(2,4)
+            'category_id' => mt_rand(1,3)
         ];
     }
 }

@@ -22,9 +22,11 @@ class UserFactory extends Factory
             'user_role_id' => mt_rand(1, 2),
             'email' => $this->faker->unique()->safeEmail(),
             'phone_number' => $this->faker->e164PhoneNumber(),
-            'email_verified_at' => now(),
+            'departement_id' => mt_rand(1,4),
+            'telegram_username' => $this->faker->userName(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
+            // 'email_verified_at' => now(),
+            // 'remember_token' => Str::random(10),
         ];
     }
 
@@ -33,12 +35,12 @@ class UserFactory extends Factory
      *
      * @return static
      */
-    public function unverified()
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'email_verified_at' => null,
-            ];
-        });
-    }
+    // public function unverified()
+    // {
+    //     return $this->state(function (array $attributes) {
+    //         return [
+    //             'email_verified_at' => null,
+    //         ];
+    //     });
+    // }
 }

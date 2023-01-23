@@ -19,9 +19,12 @@ return new class extends Migration
             $table->foreignId('user_role_id');
             $table->string('email')->unique();
             $table->string('phone_number');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->foreignId('departement_id');
+            $table->string('telegram_username');
+            $table->string('telegram_chat_id')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            // $table->timestamp('email_verified_at')->nullable();
+            // $table->rememberToken();
             $table->timestamps();
 
             // $table->primary(array('id', 'user_role_id'), 'users_primary');

@@ -15,10 +15,19 @@ class CategoryController extends Controller
     // }
 
     public function category(Category $category) {
+        $articles = Article::where('category_id', $category->id)->get();
+        $searchVal = ['<p>', '</p>', '<br>'];
+
+        for ($i = 0; $i < count($articles); $i++) {
+            $text[$i] = str_replace($searchVal, '', $articles[$i]->content);
+        }
+
         return view('category', [
+            'title' => 'category',
             'category' => $category,
-            'categories' => Category::whereNotIn('id', array(1))->get(),
-            'articles' => Article::where('category_id', $category->id)->get()
+            'categories' => Category::all(),
+            'articles' => Article::where('category_id', $category->id)->get(),
+            'text' => $text
         ]);
     }
 }
