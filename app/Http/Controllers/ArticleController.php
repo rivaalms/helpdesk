@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Storage;
 class ArticleController extends Controller
 {
     public function index() {
-        $telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
-        $url = env('WEBHOOK_URL');
-        $telegram->setWebhook([
-            'url' => $url.'/telegram/webhook/'.env('TELEGRAM_BOT_TOKEN')
-        ]);
+        //NOTE - Initiate Telegram Webhook
+        // $telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
+        // $url = env('WEBHOOK_URL');
+        // $telegram->setWebhook([
+        //     'url' => $url.'/telegram/webhook/'.env('TELEGRAM_BOT_TOKEN')
+        // ]);
 
         return view('index', [
             'title' => 'home',
